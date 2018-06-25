@@ -1,0 +1,9 @@
+node_modules
+downloads
+outputs
+input
+package-lock.json
+yarn.lock
+yarn-error.log*
+
+config.json
