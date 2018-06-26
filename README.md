@@ -2,6 +2,10 @@
 
 Reverse GIF bot
 
+## Requirements
+
+- [FFmpeg](https://github.com/FFmpeg/FFmpeg)
+
 ## Related
 
 - [fanfou-sdk](https://github.com/LitoMore/fanfou-sdk-node) - Fanfou SDK for Node.js
