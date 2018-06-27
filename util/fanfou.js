@@ -60,12 +60,14 @@ const publish = statusId => {
 
       // Check bannded
       if (isBanned(res)) {
+        console.log(logSymbols.error, 'A banned status')
         return
       }
 
       // Check origin status
       if (res.type !== 'origin' || res.plain_text.match(/(RT@|「@|转@)/)) {
         console.log(logSymbols.error, 'Not a origin status')
+        return
       }
 
       // Check file type
