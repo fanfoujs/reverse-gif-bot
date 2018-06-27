@@ -5,6 +5,8 @@ const Fanfou = require('fanfou-sdk')
 const CacheConf = require('cache-conf')
 const logSymbols = require('log-symbols')
 
+const banned = require('../banned')
+
 const {
   CONSUMER_KEY: consumerKey,
   CONSUMER_SECRET: consumerSecret,
@@ -18,6 +20,36 @@ const token = {consumerKey, consumerSecret, oauthToken, oauthTokenSecret}
 const ff = new Fanfou(token)
 const config = new CacheConf()
 
+const isBanned = status => {
+  const {BOTS, BLACKLSIT, APP, TOPIC, REGEX} = banned
+  BOTS.concat(BLACKLSIT).forEach(id => {
+    if (id === status.user.id) {
+      return true
+    }
+  })
+  APP.forEach(appName => {
+    if (appName === status.source_name) {
+      return true
+    }
+  })
+  TOPIC.forEach(tag => {
+    status.txt
+      .filter(item => item.type === 'tag')
+      .forEach(item => {
+        if (item.text.replace(/#/g, '') === tag) {
+          return true
+        }
+      })
+  })
+  REGEX.forEach(pattern => {
+    const regex = new RegExp(pattern)
+    if (status.plain_text.match(regex)) {
+      return true
+    }
+  })
+  return false
+}
+
 const publish = statusId => {
   ff.get('/statuses/show', {id: statusId}, async (err, res) => {
     if (err) {
@@ -25,6 +57,11 @@ const publish = statusId => {
     } else {
       const {photo = {}} = res
       const {originurl} = photo
+
+      // Check bannded
+      if (isBanned(res)) {
+        return
+      }
 
       // Check origin status
       if (res.type !== 'origin' || res.plain_text.match(/(RT@|「@|转@)/)) {
@@ -85,6 +122,10 @@ const getHomeTimeline = () => {
         })
         .forEach(status => {
           const {photo = {}} = status
+          if (isBanned(status)) {
+            console.log(logSymbols.success, 'A banned status')
+            return
+          }
           if (status.type !== 'origin' || status.plain_text.match(/(RT@|「@|转@)/g)) {
             console.log(logSymbols.success, 'Not origin status')
             return
