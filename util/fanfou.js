@@ -21,32 +21,31 @@ const ff = new Fanfou(token)
 const config = new CacheConf()
 
 const isBanned = status => {
-  const {BOTS, BLACKLSIT, APP, TOPIC, REGEX} = banned
-  BOTS.concat(BLACKLSIT).forEach(id => {
-    if (id === status.user.id) {
+  const {BOTS, BLACKLIST, APP, TOPIC, REGEX} = banned
+  for (const id of BOTS.concat(BLACKLIST)) {
+    if (id === status.user.id || id === status.user.unique_id) {
       return true
     }
-  })
-  APP.forEach(appName => {
+  }
+  for (const appName of APP) {
     if (appName === status.source_name) {
       return true
     }
-  })
-  TOPIC.forEach(tag => {
-    status.txt
-      .filter(item => item.type === 'tag')
-      .forEach(item => {
-        if (item.text.replace(/#/g, '') === tag) {
-          return true
-        }
-      })
-  })
-  REGEX.forEach(pattern => {
+  }
+  for (const tag of TOPIC) {
+    const tags = status.txt.filter(item => item.type === 'tag').map(item => item.text)
+    for (const tagName of tags) {
+      if (tagName.replace(/#/g, '') === tag) {
+        return true
+      }
+    }
+  }
+  for (const pattern of REGEX) {
     const regex = new RegExp(pattern)
     if (status.plain_text.match(regex)) {
       return true
     }
-  })
+  }
   return false
 }
 
@@ -106,7 +105,7 @@ const publish = statusId => {
 }
 
 const getHomeTimeline = () => {
-  ff.get('/statuses/public_timeline', {count: 60}, (err, res) => {
+  ff.get('/statuses/public_timeline', {count: 60, format: 'html'}, (err, res) => {
     if (err) {
       console.log(logSymbols.error, err.message)
     } else {
