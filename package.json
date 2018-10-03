@@ -7,6 +7,7 @@
   "author": "FanfouJS",
   "license": "MIT",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.15",
     "cache-conf": "^0.6.0",
     "download": "^6.2.5",
     "execa": "^0.9.0",

@@ -3,7 +3,10 @@
 const path = require('path')
 const down = require('download')
 const hasha = require('hasha')
+const {path: ffmpegPath} = require('@ffmpeg-installer/ffmpeg')
 const ffmpeg = require('fluent-ffmpeg')
+
+ffmpeg.setFfmpegPath(ffmpegPath)
 
 const getHash = file => {
   return hasha.fromFile(file, {algorithm: 'md5'})
