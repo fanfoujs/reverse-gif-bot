@@ -3,5 +3,6 @@
   "CONSUMER_SECRET": "",
   "OAUTH_TOKEN": "",
   "OAUTH_TOKEN_SECRET": "",
+  "HTTPS": false,
   "FFMPEG_PATH": false
 }

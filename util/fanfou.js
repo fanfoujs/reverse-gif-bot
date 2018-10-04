@@ -11,13 +11,21 @@ const {
   CONSUMER_KEY: consumerKey,
   CONSUMER_SECRET: consumerSecret,
   OAUTH_TOKEN: oauthToken,
-  OAUTH_TOKEN_SECRET: oauthTokenSecret
+  OAUTH_TOKEN_SECRET: oauthTokenSecret,
+  HTTPS: https
 } = require('../config')
 const {download, reverse} = require('./reverse')
 
-const token = {consumerKey, consumerSecret, oauthToken, oauthTokenSecret}
+const opt = {
+  consumerKey,
+  consumerSecret,
+  oauthToken,
+  oauthTokenSecret,
+  protocol: https ? 'https:' : 'http',
+  fakeHttps: https
+}
 
-const ff = new Fanfou(token)
+const ff = new Fanfou(opt)
 const config = new CacheConf()
 
 const isBanned = status => {
