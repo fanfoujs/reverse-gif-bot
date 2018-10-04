@@ -2,9 +2,23 @@
 
 Reverse GIF bot
 
-## Requirements
+## Usage
 
-- [FFmpeg](https://github.com/FFmpeg/FFmpeg)
+```bash
+# Clone this repo
+$ git clone git@github.com:fanfoujs/reverse-gif-bot.git
+
+# Install dependencies
+$ cd reverse-gif-bot
+$ npm i
+
+# Modify the config files according to your needs
+$ cp banned.json.example banned.json
+$ cp config.json.example config.json
+
+# Happy hacking!
+$ node app.js
+```
 
 ## Related
 
