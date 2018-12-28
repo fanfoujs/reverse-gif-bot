@@ -4,5 +4,6 @@
   "OAUTH_TOKEN": "",
   "OAUTH_TOKEN_SECRET": "",
   "HTTPS": false,
-  "FFMPEG_PATH": false
+  "FFMPEG_PATH": false,
+  "INTERVAL": 10
 }
