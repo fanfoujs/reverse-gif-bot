@@ -5,6 +5,6 @@ input
 package-lock.json
 yarn.lock
 yarn-error.log*
-
+.vscode
 config.json
 banned.json
