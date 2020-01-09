@@ -68,7 +68,7 @@ const publish = async statusId => {
 
 	// Check bannded
 	if (isBanned(res)) {
-		console.log(logSymbols.error, 'A banned status');
+		console.log(logSymbols.error, 'A banned status', res.user.name, res.user.id, res.source_name);
 		return;
 	}
 
