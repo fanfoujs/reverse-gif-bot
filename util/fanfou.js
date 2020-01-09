@@ -130,7 +130,7 @@ const getHomeTimeline = async () => {
 		.forEach(status => {
 			const {photo = {}} = status;
 			if (isBanned(status)) {
-				console.log(logSymbols.success, 'A banned status');
+				console.log(logSymbols.success, 'A banned status', status.user.name, status.user.id, status.source_name);
 				return;
 			}
 			if (status.type !== 'origin' || status.plain_text.match(/(RT@|「@|转@)/g)) {
