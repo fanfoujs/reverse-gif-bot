@@ -21,7 +21,7 @@ const opt = {
 	consumerSecret,
 	oauthToken,
 	oauthTokenSecret,
-	protocol: https ? 'https:' : 'http',
+	protocol: https ? 'https:' : 'http:',
 	hooks: {
 		baseString: str => https ? str.replace('https', 'http') : str
 	}
