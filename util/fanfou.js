@@ -22,9 +22,7 @@ const opt = {
 	oauthToken,
 	oauthTokenSecret,
 	protocol: https ? 'https:' : 'http:',
-	hooks: {
-		baseString: str => https ? str.replace('https', 'http') : str
-	}
+	fakeHttps: true
 };
 
 const ff = new Fanfou(opt);
